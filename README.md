@@ -32,7 +32,7 @@ optional arguments:
 
 ```
 
-# 依赖 / Dependent
+# 依赖
 ```txt
 opencv-python
 imageio
@@ -42,7 +42,7 @@ requests
 python-docx
 ```
 
-# 怎么用 / How to use 
+# 怎么用
 
 非常简单  
 ```sh
@@ -63,8 +63,14 @@ replace-txt 是一个普通的文本文件，可以用notepad编辑和生成。
 文件结构为 行式结构，行间使用回车符分隔，行内使用空格符分隔。  
 第一个列为请求的url，第二列为要替换的本地资源的路径。  
 
-replace-txt 结构
+replace-txt 结构  
 ```
 请求的url1 本地资源路径1
 请求的url2 本地资源路径2
+```
+
+例子，参见 example-replace-txt.txt  
+```
+https://www.lightnovel.us/cn/detail/336435 336435_fix.html
+https://www.lightnovel.us/cn/detail/392689 392689_fix.html
 ```
