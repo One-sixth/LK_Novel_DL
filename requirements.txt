@@ -1,0 +1,6 @@
+opencv-python
+imageio
+numpy
+beautifulsoup4
+requests
+python-docx
