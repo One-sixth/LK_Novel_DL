@@ -1,3 +1,9 @@
+.idea/
+*.pkl
+*.bak
+*.htm*
+*.docx
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
