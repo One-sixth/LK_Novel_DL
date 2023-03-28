@@ -1,6 +1,6 @@
 import time
 import cv2
-import imageio
+import imageio.v3 as imageio
 import numpy as np
 from bs4 import BeautifulSoup
 import requests
@@ -13,6 +13,10 @@ import shutil
 from io import BytesIO
 from docx import shared
 from argparse import ArgumentParser
+
+# 使用反爬库
+use_cloudscraper = True
+#
 
 
 description = f'''
@@ -92,7 +96,7 @@ if replace_txt is not None:
     print()
 
 
-ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36'
+ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'
 
 # 代理设置
 proxies = {
@@ -107,7 +111,11 @@ if not os.path.isfile(cache_file):
 
 cache_dict: dict = pickle.load(open(cache_file, 'rb'))
 
-session = requests.Session()
+if use_cloudscraper:
+    import cloudscraper
+    session = cloudscraper.create_scraper()
+else:
+    session = requests.Session()
 
 
 def get_url(url: str, ref=None):
@@ -138,10 +146,12 @@ def get_url(url: str, ref=None):
             # 必须使用等待，如果请求速度过快，会被ban。
             time.sleep(1)
             try:
-                if ref is None:
-                    q = session.get(url, headers={'user-agent': ua}, timeout=5, proxies=proxies)
-                else:
-                    q = session.get(url, headers={'referer': ref, 'user-agent': ua}, timeout=5, proxies=proxies)
+                headers = {}
+                if ref is not None:
+                    headers['referer'] = ref
+                if not use_cloudscraper:
+                    headers['user-agent'] = ua
+                q = session.get(url, headers=headers, timeout=5, proxies=proxies)
                 if q.status_code == 200:
                     success = True
                     break

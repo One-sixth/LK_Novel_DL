@@ -40,6 +40,7 @@ numpy
 beautifulsoup4
 requests
 python-docx
+cloudscraper>=1.2.69
 ```
 
 # 怎么用
